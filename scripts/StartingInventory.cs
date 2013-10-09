@@ -56,6 +56,10 @@ public class StartingInventory : MonoBehaviour {
 		GUILayout.EndArea();
 	}
 	
+	// --- getNumItems ----
+	// 	purpose: gets item number based on difficulty
+	// 	returns: int
+
 	private int getNumItems(int difficulty) {
 		int numGameItems = 5;
 		if (difficulty == 2) {
@@ -70,6 +74,12 @@ public class StartingInventory : MonoBehaviour {
 		return numGameItems;
 	}
 	
+	// --- startingItemList
+	//	purpose: copies all the items to a new array
+	//			randomly generates a list of starting
+	//			items and adds them to an array
+	// 	modifies: itemlist
+	 
 	void startingItemList() {
 		itemlist = new string[numItems];
 		string[] temp = new string[items.Length];
