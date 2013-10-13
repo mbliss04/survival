@@ -8,10 +8,40 @@
  * and updates/displays their values
  * --------------------------------*/
 
+/* -------------------------------
+ * HealthBars.cs
+ * Author: McCall Bliss
+ * Created: Oct 1, 2013
+ * Last Modified: Oct 3, 2013
+ * 
+ * Takes a list of needs for the player
+ * and updates/displays their values
+ * --------------------------------*/
+
 using UnityEngine;
 using System.Collections;
 
 public class HealthBars : MonoBehaviour {
+	
+	// Definition of a need
+	struct Need {
+		private readonly string name;
+		private readonly int height;
+		private float amount;
+		
+		public Need (string name, int height, float amount) {
+			this.name = name;
+			this.height = height;
+			this.amount = amount;
+		}
+		
+		public string Name { get { return name; } }
+		public int Height { get { return height; } }
+		public float Amount { get { return amount; } }
+		public void alterAmount(float newamount) {
+			this.amount = newamount;
+		}
+	}
 	
 	// Variables
 	private int maxHealth = 100;
