@@ -1,3 +1,6 @@
+{string name, string descrip, int quantity, float weight, string image, flam, view, wear};
+
+
 "Map", "A map of the surrounding area", -1, 0.02f, null, true, true, false
 
 "Compass", "An instrument used for direction", -1, 0.5f, null, false, true, false
