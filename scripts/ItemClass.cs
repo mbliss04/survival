@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ItemClass : MonoBehaviour {
+public class ItemClass: MonoBehaviour {
 	
 	string itemName;
 	string descrip;
@@ -15,19 +15,16 @@ public class ItemClass : MonoBehaviour {
 	bool isWearable;
 	bool isChosen;
 	
-	void Awake () {
-
-	}
-	
-	// Use this for initialization
-	void Start () {
+	//default constructor
+	public ItemClass() {
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public ItemClass(string name, float itemweight) {
+		itemName = name;
+		weight = itemweight;
 	}
+	
 	
 	public string Name {
 		get { return itemName; }

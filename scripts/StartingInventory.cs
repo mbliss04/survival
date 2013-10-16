@@ -19,23 +19,41 @@ public class StartingInventory : MonoBehaviour {
 	// Variables
 
 	int numItems = 5;
-
-	string[] items = {"Maps","Compass","Lighter","Survival Guide","Torch","Med kit","Sun Hat","Outdoor Shoes","Wind proof clothing","Blanket","Drinking Water","Canned Foods","Rope","Sunscreen","Waterproof matches","Cotton balls","Knife","Mirror", "Sanitary Wipes", "Water purification tablets", "Insect repellent","High pitch whistle", "Solar blanket"};
-
-	string[] itemlist;
+	int difficulty = 1;
 	
+	// list of random starting items
+	ItemClass[] itemlist;
+	
+	// Scripts
+	protected Inventory playerInventory;
+	
+	protected GameObject itemobject;
+
+	protected AllInventoryItems allitems;
 
 	// Initialize function
 	void Start() {
+		
+		// get inventory game object
+		itemobject = GameObject.Find ("InventoryObjects");
+		
+		// get script components
+		if (playerInventory) {
+			playerInventory = gameObject.GetComponent<Inventory>();
+		}
+		if (itemobject) {
+			allitems = itemobject.gameObject.GetComponent<AllInventoryItems>();	 
+		}
+			
 		// Get difficulty from user
 		// int difficulty = getDiff();
-		int difficulty = 1;
 		
 		// Get number of items allowed
-		numItems = getNumItems(difficulty);
+		//numItems = getNumItems(difficulty);
 		
-		// Make list of randomized starting items
-		startingItemList();
+		// get random list of items
+		itemlist = allitems.getRandomList();
+		
 	}
 	
 	// Draw user interface
@@ -45,55 +63,16 @@ public class StartingInventory : MonoBehaviour {
 		
 		GUILayout.Box ("Starting Inventory");
 		
-		foreach (string item in itemlist) {
-			if (GUILayout.Button(item)) {
-				// Add item to inventory
+		/*
+		foreach (ItemClass item in itemlist) {
+			if (GUILayout.Button(item.Name)) {
+				playerInventory.backpack.Add(item);
 				// Remove item from screen/choices
 				// Refresh buttons
 			}
-		}
+		}*/
 		
 		GUILayout.EndArea();
 	}
 	
-	// --- getNumItems ----
-	// 	purpose: gets item number based on difficulty
-	// 	returns: int
-
-	private int getNumItems(int difficulty) {
-		int numGameItems = 5;
-		if (difficulty == 2) {
-			numGameItems = 3;
-		}
-		if (difficulty == 3) {
-			numGameItems = 1;
-		}
-		if (difficulty == 4) {
-			numGameItems = 0;
-		}
-		return numGameItems;
-	}
-	
-	// --- startingItemList
-	//	purpose: copies all the items to a new array
-	//			randomly generates a list of starting
-	//			items and adds them to an array
-	// 	modifies: itemlist
-	 
-	void startingItemList() {
-		itemlist = new string[numItems];
-		string[] temp = new string[items.Length];
-		for (int i = 0; i < items.Length; i++) {
-			temp[i] = items[i];
-		}
-		int index;
-		for (int i = 0; i < numItems; i++) {
-			index = Random.Range(0, temp.Length);
-			do {
-				index = Random.Range(0, temp.Length);
-			}  while (temp[index] == null);
-			itemlist[i] = temp[index];
-			temp[index] = null;
-		}
-	}
 }

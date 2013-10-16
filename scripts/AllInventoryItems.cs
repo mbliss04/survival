@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-public class AllInventoryItems : MonoBehaviour {
+public class AllInventoryItems : ScriptableObject {
 	
 	public enum itemProp {name, descrip, quantity, weight, image, flam, view, wear};
 		
@@ -12,7 +12,15 @@ public class AllInventoryItems : MonoBehaviour {
 	
 	bool success = false;
 	
-	string filename = "C:/Users/mccallbliss/games/items.txt";
+	int numProperties = 7;
+	
+	int numChoices = 10;
+	
+	int numItems = 0;
+	
+	string filename = "Assets/items.txt";
+	
+	ItemClass[] itemlist;
 	
 	void Awake() {
 		
@@ -20,11 +28,10 @@ public class AllInventoryItems : MonoBehaviour {
 		success = readInData();
 		if (success) {
 			Debug.Log ("all read in");
+			generateRandomList();
 		}
 		
 	}
-	
-	ItemClass[] itemlist;
 	
 	// Use this for initialization
 	void Start () {
@@ -36,17 +43,19 @@ public class AllInventoryItems : MonoBehaviour {
 	
 	}
 	
-	public ItemClass[] randomList(int numItems) {
+	void generateRandomList() {
 		
-		// index of the item in the big list
+		// index of larger list
 		int index = 0;
 		
-		// make a list of random items
-		itemlist = new ItemClass[numItems];
+		// make a new list to store random items
+		itemlist = new ItemClass[numChoices];
+		
+		Debug.Log(numItems);
 		
 		// loop through big list and make 
 		// array of random items
-		for (int i = 0; i < numItems; i++) {
+		for (int i = 0; i < numChoices; i++) {
 			index = Random.Range(0, allitems.Count);
 			do {
 				index = Random.Range(0, allitems.Count);
@@ -54,6 +63,10 @@ public class AllInventoryItems : MonoBehaviour {
 			itemlist[i] = allitems[index];
 			allitems[index].Chosen = true;
 		}
+	
+	}
+	
+	public ItemClass[] getRandomList() {
 		
 		return itemlist;
 		
@@ -63,7 +76,6 @@ public class AllInventoryItems : MonoBehaviour {
 		
 		StreamReader reader = new StreamReader(filename, Encoding.Default);
 		string line;
-		int i = 0;
 		
 		using (reader) {
 			
@@ -71,28 +83,36 @@ public class AllInventoryItems : MonoBehaviour {
 				line = reader.ReadLine();
 				if (line != null) {
 					string[] qualities = line.Split (',');
-					if (qualities.Length > 0) {
-						Debug.Log (qualities[(int)itemProp.name]);
-						/*
-						allitems[i].Name = qualities[(int)itemProp.name];
-						allitems[i].Description = qualities[(int)itemProp.descrip];
-						allitems[i].Quantity = qualities[(int)itemProp.quantity];
-						allitems[i].Weight = qualities[(int)itemProp.weight];
-						allitems[i].Image = qualities[(int)itemProp.image];
-						allitems[i].Flammable = qualities[(int)itemProp.flam];
-						allitems[i].Viewable = qualities[(int)itemProp.view];
-						allitems[i].Wearable = qualities[(int)itemProp.wear];
-						allitems[i].Index = i;
-						*/
+					if (qualities.Length > 0 && qualities.Length == numProperties) {
+						success = AddNewItem(qualities);
+						if (success) {
+							Debug.Log ("Added new item");
+							numItems++;
+						}
 					}
 				}
-				i++;
 			} while (line != null);
 		}
 		
 		reader.Close();
 		return true;
 		
+	}
+	
+	bool AddNewItem(string[] qualities) {
+		ItemClass newitem = new ItemClass();
+		newitem.Name = qualities[(int)itemProp.name];
+		newitem.Description = qualities[(int)itemProp.descrip];
+		newitem.Quantity = System.Int32.Parse(qualities[(int)itemProp.quantity]);
+		newitem.Weight = float.Parse(qualities[(int)itemProp.weight]);
+		newitem.Image = qualities[(int)itemProp.image];
+		newitem.Flammable = bool.Parse(qualities[(int)itemProp.flam]);
+		newitem.Viewable = bool.Parse(qualities[(int)itemProp.view]);
+		newitem.Wearable = bool.Parse(qualities[(int)itemProp.wear]);
+		newitem.Chosen = false;
+		newitem.Index = numItems;
+		allitems.Add (newitem);
+		return true;
 	}
 	
 }
