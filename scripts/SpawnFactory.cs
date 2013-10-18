@@ -90,7 +90,7 @@ public class SpawnFactory : MonoBehaviour {
 		if(clone != null){
 			numSpawned++;
 			clone.transform.parent = transform;
-			clone.transform.name = "food" + numSpawned;
+			clone.transform.name = "harvestable" + numSpawned;
 		}
 	}
 	
