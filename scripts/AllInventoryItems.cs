@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-public class AllInventoryItems : ScriptableObject {
+public class AllInventoryItems : MonoBehaviour {
 	
 	public enum itemProp {name, descrip, quantity, weight, image, flam, view, wear};
 		
@@ -25,7 +25,7 @@ public class AllInventoryItems : ScriptableObject {
 	void Awake() {
 		
 		// reads in data from text file
-		success = readInData();
+		//success = readInData();
 		if (success) {
 			Debug.Log ("all read in");
 			generateRandomList();

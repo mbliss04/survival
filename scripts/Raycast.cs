@@ -2,14 +2,14 @@
  * Raycast.cs
  * Author: McCall Bliss
  * Created: Oct 1, 2013
- * Last Modified: Oct 3, 2013
+ * Last Modified: Oct 10, 2013
  * 
  * Casts a ray from object and, if 
  * the object is close enough and 
  * interactive, it presents a number
  * of different options to the player
  * --------------------------------*/
-
+ 
 using UnityEngine;
 using System.Collections;
 
@@ -17,45 +17,93 @@ using System.Collections;
 
 public class Raycast : MonoBehaviour {
 	
-	// players inventory
-	protected Inventory backpack;
-	
 	// all objects on layer8 (Object layer)
-	int layerObject = 1<<8;
+	private int layerObject = 1<<8;
+	private int food, harvestedTimes, rayCastDistance;
+	private int berries, grapes, pGrapes, pBerries;
+	private string objectName = "";
 	
-	// initialization
+	// Use this for initialization
 	void Start () {
+		//toggleMouseVisibility 	= true;
+		rayCastDistance 		= 3;
 		
-		// get players inventory
-		if (backpack) {
-			backpack = gameObject.GetComponent<Inventory>();
-		}
-		
+		// Lock the cursor at the center of the screen to simulate a gunpoint.
+		//Screen.lockCursor 		= toggleMouseVisibility;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		objectName = "";
+		
+		// Toggle mouse visibility if needed.
+		//if (Input.GetKeyDown(KeyCode.Escape)){
+    	//	toggleMouseVisibility = !toggleMouseVisibility;
+			
+		//	Screen.lockCursor = true;//toggleMouseVisibility;
+		//}
+		
+		if (Input.GetKey(KeyCode.Escape))
+    		Screen.lockCursor = false;
+		else
+   		 	Screen.lockCursor = true;
+		
+		UnityEngine.
+	
 		// sends out a ray from the camera
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Debug.DrawRay(ray.origin, ray.direction*10, Color.cyan);
 		RaycastHit hit;
-		
+			
 		// checks if ray hits an object on layer 8
-		if (Physics.Raycast(ray, out hit, 3, layerObject)) {
+		if (Physics.Raycast(ray, out hit, rayCastDistance, 1<<8)) {
+			objectName = hit.transform.gameObject.name;
+			GameObject c = hit.transform.gameObject;
 			
-			Debug.DrawRay(ray.origin, ray.direction*hit.distance, Color.red);
-			//Debug.Log("Ray hit " + hit.transform.gameObject.tag);
-			
-			// change color if has been hit
-			hit.collider.gameObject.renderer.material.color = Color.red;
-			
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				//if (hit.collider.gameObject.GetComponent<ItemClass>() != null) {
-				//	Debug.Log ("Has a class called ItemClass");
-				//}
+			if (Input.GetKeyDown(KeyCode.Mouse0)) {
+				// Add to inventory
+				if(objectName.Contains("food"))
+				{
+					//c.GetComponent<Harvest>().getHarvestType();
+					harvestFood(c.GetComponent<Harvest>().getHarvestType(), c.GetComponent<Harvest>().getHarvest());
+					
+					// Now destroy the object.
+					Destroy(c);
+					
+					harvestedTimes++;
+				}
 			}
 		}
-		
 	}
 	
+	void OnGUI () {
+		// Make a background box
+		GUI.Label (new Rect (20,300,400,80), "Object Name: " + objectName);
+		GUI.Label (new Rect (20,315,400,80), "Times Harvested: " + harvestedTimes);
+		GUI.Label (new Rect (20,330,400,80), "berries: " + berries);
+		GUI.Label (new Rect (20,345,400,80), "grapes: " + grapes);
+		GUI.Label (new Rect (20,360,400,80), "pBerries: " + pBerries);
+		GUI.Label (new Rect (20,375,400,80), "pGrapes: " + pGrapes);
+	}
+	
+	public void harvestFood(EHarvestType type, int iFoodAmount){
+		//food += iFoodAmount;
+		
+		switch(type){
+		case EHarvestType.EBerries:
+			berries += iFoodAmount;
+			break;
+		case EHarvestType.EGrapes:
+			grapes += iFoodAmount;
+			break;
+		case EHarvestType.EPoisionessGrapes:
+			pGrapes += iFoodAmount;
+			break;
+		case EHarvestType.EPoisionessBerries:
+			pBerries += iFoodAmount;
+			break;
+		default:
+			Debug.Log("Raycast, HarvestFood; Error harvestType");
+			break;
+		}	
+	}
 }
