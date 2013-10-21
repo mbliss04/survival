@@ -3,12 +3,15 @@ using System.Collections;
 
 public class PlayerAttributes : MonoBehaviour {
 	
-	enum attr {hunger, warmth, sanity, thirst, energy, health};
-	
+	enum attr {hunger, warmth, sanity, thirst, energy, health};	
 	int numAttr = 6;
+	string[] names = {"Hunger","Warmth","Sanity","Thirst","Energy","Health"};
+
 	float maxAmount = 100f;
 	float goingInsane = 40f;
 	float exertion = 0f;
+	
+	int startheight = 20;
 	
 	float[] attributes;
 	
@@ -41,10 +44,21 @@ public class PlayerAttributes : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		updateAttributes();
 		if (!playerAlive()) {
 			endGame();
 		}
+		
+	}
+	
+	void OnGUI() {
+		
+		// Draws a bar for each attribute
+		for (int i = 0; i < numAttr; i++) {
+			GUI.Box(new Rect(10, (i*startheight) + 10, (int)attributes[i], 20), names[i]);
+		}
+		
 	}
 	
 	// updates all player attributes
@@ -181,4 +195,5 @@ public class PlayerAttributes : MonoBehaviour {
 		
 	
 	}
+	
 }
