@@ -12,7 +12,7 @@ public class AllInventoryItems : MonoBehaviour {
 	
 	bool success = false;
 	
-	int numProperties = 7;
+	//int numProperties = 7;
 	
 	int numChoices = 10;
 	
@@ -25,7 +25,7 @@ public class AllInventoryItems : MonoBehaviour {
 	void Awake() {
 		
 		// reads in data from text file
-		//success = readInData();
+		success = readInData();
 		if (success) {
 			Debug.Log ("all read in");
 			generateRandomList();
@@ -43,6 +43,12 @@ public class AllInventoryItems : MonoBehaviour {
 	
 	}
 	
+	void OnGUI () {
+	
+	
+		
+	}
+	
 	void generateRandomList() {
 		
 		// index of larger list
@@ -51,19 +57,17 @@ public class AllInventoryItems : MonoBehaviour {
 		// make a new list to store random items
 		itemlist = new ItemClass[numChoices];
 		
-		Debug.Log(numItems);
-		
 		// loop through big list and make 
 		// array of random items
 		for (int i = 0; i < numChoices; i++) {
-			index = Random.Range(0, allitems.Count);
-			do {
-				index = Random.Range(0, allitems.Count);
-			}  while (!allitems[index].Chosen);
+			index = Random.Range(0, (numItems-1));
+			while (allitems[index].Chosen) {
+				index = Random.Range (0, (numItems-1));
+			}
 			itemlist[i] = allitems[index];
 			allitems[index].Chosen = true;
 		}
-	
+
 	}
 	
 	public ItemClass[] getRandomList() {
@@ -83,11 +87,15 @@ public class AllInventoryItems : MonoBehaviour {
 				line = reader.ReadLine();
 				if (line != null) {
 					string[] qualities = line.Split (',');
-					if (qualities.Length > 0 && qualities.Length == numProperties) {
-						success = AddNewItem(qualities);
-						if (success) {
-							Debug.Log ("Added new item");
-							numItems++;
+					if (qualities.Length > 0) {
+						if (qualities.Length == 8) {
+							success = AddNewItem(qualities);
+							if (success) {
+								numItems++;
+							}
+						}
+						else {
+							Debug.Log ("Item doesnt have eight");
 						}
 					}
 				}
