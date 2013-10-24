@@ -1,25 +1,25 @@
-"Map", "A map of the surrounding area", -1, 0.02, null, true, true, false
-"Compass", "An instrument used for direction", -1, 0.5, null, false, true, false
-"Lighter", "Produces a flame", 10, 0.02, null, true, true, false
-"Survival Guide", "Basic survival skills", -1, 1, null, true, true, false
-"Torch", "Light to illuminate darkness", 20, 0.625, null, false, true, false
-"Medical Kit", "Contains supplies to help heal basic wounds", 10, 1, null, true, true, false
-"Sun Hat", "Protects from ultraviolet light", -1, 0.5, null, true, false, true
-"Outdoor Shoes", "Improves speed and keeps feet dry", -1, 2, null, true, false, true
-"Windbreaker", "Provides warmth", -1, 2.5, null, true, false, true
-"Blanket", "Provides warmth", -1, 3, null, true, false, false
-"Water Bottle", "Stores 1 liter of water", 10, 2.5, null, false, false, false
-"Canned Goods", "Improves hunger", 4, 5, null, false, false, false
-"Rope", "10 meters of rope", -1, 5, null, true, true, false
-"Sunscreen", "Protects from ultraviolet rays", 10, 2, null, false, false, true
-"Matches", "Improves speed and keeps feet dry", -1, 2, null, true, false, true
-"Cotton Balls", "Balls made of cotton", 10, 0.5, null, true, true, false
-"Knife", "Tool for cutting", -1, 1, null, false, true, false
-"Mirror", Reflective surface, -1, 1, null, true, true, false
-"Sanitary Wipes", "Wet wipes", 5, 0.5, null, true, true, false
-"Water Purification Tablets", "Purifies any water source", 10, 0.5, null, false, false, true
-"Insect Repellent", "Stops bites from insects", 10, 0.5, null, true, false, true
-"High Pitch Whistle", "Makes a high pitched noise", -1, 0.02, null, false, true, false
-"Solar Blanket", "Provides warmth and can be re-charged", -1, 4, null, true, false, true
-"Flare Gun", "Contains 2 flares for emergencies", 2, 1, null, true, false, false 
-"Sleeping Bag", "Provides warmth and shelter at night" , -1, 4, null, true, false, true
+"Map", "A map of the surrounding area", -1, 0.02, "Textures/Inventory/map.jpg", true, true, false
+"Compass", "An instrument used for direction", -1, 0.5, "Textures/Inventory/compass.jpg", false, true, false
+"Lighter", "Produces a flame", 10, 0.02, "Textures/Inventory/lighter.jpg", true, true, false
+"Survival Guide", "Basic survival skills", -1, 1, "Textures/Inventory/survivalguide.jpg", true, true, false
+"Torch", "Light to illuminate darkness", 20, 0.625, "Textures/Inventory/torch.jpg", false, true, false
+"Medical Kit", "Contains supplies to help heal basic wounds", 10, 1, "Textures/Inventory/medkit.jpg", true, true, false
+"Sun Hat", "Protects from ultraviolet light", -1, 0.5, "Textures/Inventory/hat.jpg", true, false, true
+"Outdoor Shoes", "Improves speed and keeps feet dry", -1, 2, "Textures/Inventory/outdoorshoes.jpg", true, false, true
+"Windbreaker", "Provides warmth", -1, 2.5, "Textures/Inventory/windbreaker.jpg", true, false, true
+"Blanket", "Provides warmth", -1, 3, "Textures/Inventory/blanket.jpg", true, false, false
+"Water Bottle", "Stores 1 liter of water", 10, 2.5, "Textures/Inventory/waterbottle.jpg", false, false, false
+"Canned Goods", "Improves hunger", 4, 5, "Textures/Inventory/cannedgoods.jpg", false, false, false
+"Rope", "10 meters of rope", -1, 5, "Textures/Inventory/rope.jpg", true, true, false
+"Sunscreen", "Protects from ultraviolet rays", 10, 2, "Textures/Inventory/sunscreen.jpg", false, false, true
+"Matches", "Improves speed and keeps feet dry", -1, 2, "Textures/Inventory/matches.jpg", true, false, true
+"Cotton Balls", "Balls made of cotton", 10, 0.5, "Textures/Inventory/cottonballs.jpg", true, true, false
+"Knife", "Tool for cutting", -1, 1, "Textures/Inventory/knife.jpg", false, true, false
+"Mirror", Reflective surface, -1, 1, "Textures/Inventory/mirror.jpg", true, true, false
+"Sanitary Wipes", "Wet wipes", 5, 0.5, "Textures/Inventory/wipes.jpg", true, true, false
+"Water Purification Tablets", "Purifies any water source", 10, 0.5, "Textures/Inventory/watertablets.jpg", false, false, true
+"Insect Repellent", "Stops bites from insects", 10, 0.5, "Textures/Inventory/insectrepellent.jpg", true, false, true
+"High Pitch Whistle", "Makes a high pitched noise", -1, 0.02, "Textures/Inventory/whistle.jpg", false, true, false
+"Solar Blanket", "Provides warmth and can be re-charged", -1, 4, "Textures/Inventory/solarblanket.jpg", true, false, true
+"Flare Gun", "Contains 2 flares for emergencies", 2, 1, "Textures/Inventory/flaregun.jpg", true, false, false 
+"Sleeping Bag", "Provides warmth and shelter at night" , -1, 4, "Textures/Inventory/sleepingbag.jpg", true, false, true
