@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour {
 	float maxWeight = 75f;
 	bool isFull = false;
 	
+	public Texture inventoryWindow;
+	
 	// Use this for initialization
 	void Awake () {
 		backpack = null;
@@ -18,7 +20,22 @@ public class Inventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
+	}
+	
+	void OnGUI () {
+	
+		// if the cursor isn't locked, show the inventory
+		if (!Screen.lockCursor) {
+			GUI.BeginGroup(new Rect(Screen.width / 2, Screen.height - Screen.height, Screen.width, 60));
+			for (int i = 0; i < numItems; i++) {
+				if (GUI.Button (new Rect (10,10, 50, 50), backpack[i].texture)) {
+					// show the functions of that item
+				}
+			}
+			GUI.EndGroup();
+		}
+		
 	}
 	
 	public int Items {
@@ -35,6 +52,7 @@ public class Inventory : MonoBehaviour {
 		
 		// if there is room, add item to the backpack
 		if ((newItem.Weight + curWeight) < maxWeight) {
+			newItem.ImgTexture = (Texture2D)Resources.LoadAssetAtPath(newItem.Image, typeof(Texture2D));
 			backpack.Add(newItem);
 			curWeight += newItem.Weight;
 			return !isFull;
