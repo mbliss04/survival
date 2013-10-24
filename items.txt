@@ -1,52 +1,25 @@
-{string name, string descrip, int quantity, float weight, string image, flam, view, wear};
-
-
-"Map", "A map of the surrounding area", -1, 0.02f, null, true, true, false
-
-"Compass", "An instrument used for direction", -1, 0.5f, null, false, true, false
-
-"Lighter", "Produces a flame", 10, 0.02f, null, true, true, false
-
-"Survival Guide", "Basic survival skills", -1, 1f, null, true, true, false
-
-"Torch", "Light to illuminate darkness", 20, 0.625f, null, false, true, false
-
-"Medical Kit", "Contains supplies to help heal basic wounds", 10, 1f, null, true, true, false
-
-"Sun Hat", "Protects from ultraviolet light", -1, 0.5f, null, true, false, true
-
-"Outdoor Shoes", "Improves speed and keeps feet dry", -1, 2f, null, true, false, true
-
-"Windbreaker", "Provides warmth", -1, 2.5f, null, true, false, true
-
-"Blanket", "Provides warmth", -1, 3f, null, true, false, false
-
-"Water Bottle", "Stores 1 liter of water", 10, 2.5f, null, false, false, false
-
-"Canned Goods", "Improves hunger", 4, 5f, null, false, false, false
-
-"Rope", "10 meters of rope", -1, 5f, null, true, true, false
-
-"Sunscreen", "Protects from ultraviolet rays", 10, 2f, null, false, false, true
-
-"Matches", "Improves speed and keeps feet dry", -1, 2f, null, true, false, true
-
-"Cotton Balls", "Balls made of cotton", 10, 0.5f, null, true, true, false
-
-"Knife", "Tool for cutting", -1, 1f, null, false, true, false
-
-"Mirror", Reflective surface, -1, 1f, null, true, true, false
-
-"Sanitary Wipes", "Wet wipes", 5, 0.5f, null, true, true, false
-
-"Water Purification Tablets", "Purifies any water source", 10, 0.5f, false, false, true
-
-"Insect Repellent", "Stops bites from insects", 10, 0.5f, true, false, true
-
-"High Pitch Whistle", "Makes a high pitched noise", -1, 0.02f, null, false, true, false
-
-"Solar Blanket", "Provides warmth and can be re-charged", -1, 4f, null, true, false, true
-
-"Flare Gun", "Contains 2 flares for emergencies", 2, 1f, null, true, false, false 
-
-"Sleeping Bag", "Provides warmth and shelter at night" , -1, 4f, null, true, false, true
+"Map", "A map of the surrounding area", -1, 0.02, null, true, true, false
+"Compass", "An instrument used for direction", -1, 0.5, null, false, true, false
+"Lighter", "Produces a flame", 10, 0.02, null, true, true, false
+"Survival Guide", "Basic survival skills", -1, 1, null, true, true, false
+"Torch", "Light to illuminate darkness", 20, 0.625, null, false, true, false
+"Medical Kit", "Contains supplies to help heal basic wounds", 10, 1, null, true, true, false
+"Sun Hat", "Protects from ultraviolet light", -1, 0.5, null, true, false, true
+"Outdoor Shoes", "Improves speed and keeps feet dry", -1, 2, null, true, false, true
+"Windbreaker", "Provides warmth", -1, 2.5, null, true, false, true
+"Blanket", "Provides warmth", -1, 3, null, true, false, false
+"Water Bottle", "Stores 1 liter of water", 10, 2.5, null, false, false, false
+"Canned Goods", "Improves hunger", 4, 5, null, false, false, false
+"Rope", "10 meters of rope", -1, 5, null, true, true, false
+"Sunscreen", "Protects from ultraviolet rays", 10, 2, null, false, false, true
+"Matches", "Improves speed and keeps feet dry", -1, 2, null, true, false, true
+"Cotton Balls", "Balls made of cotton", 10, 0.5, null, true, true, false
+"Knife", "Tool for cutting", -1, 1, null, false, true, false
+"Mirror", Reflective surface, -1, 1, null, true, true, false
+"Sanitary Wipes", "Wet wipes", 5, 0.5, null, true, true, false
+"Water Purification Tablets", "Purifies any water source", 10, 0.5, null, false, false, true
+"Insect Repellent", "Stops bites from insects", 10, 0.5, null, true, false, true
+"High Pitch Whistle", "Makes a high pitched noise", -1, 0.02, null, false, true, false
+"Solar Blanket", "Provides warmth and can be re-charged", -1, 4, null, true, false, true
+"Flare Gun", "Contains 2 flares for emergencies", 2, 1, null, true, false, false 
+"Sleeping Bag", "Provides warmth and shelter at night" , -1, 4, null, true, false, true
