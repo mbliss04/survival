@@ -9,6 +9,7 @@ public class ItemClass {
 	int quantity;
 	float weight;
 	string imageSrc;
+	public Texture2D texture;
 	
 	bool isFlammable;
 	bool isViewable;
@@ -21,8 +22,10 @@ public class ItemClass {
 	}
 	
 	public ItemClass(string name, float itemweight) {
+		
 		itemName = name;
 		weight = itemweight;
+	
 	}
 	
 	
@@ -54,6 +57,11 @@ public class ItemClass {
 	public string Image {
 		get { return imageSrc; }
 		set { imageSrc = value; }
+	}
+	
+	public Texture2D ImgTexture {
+		get { return texture; }
+		set { texture = value; }
 	}
 	
 	public bool Flammable {
