@@ -53,7 +53,7 @@ public class SpawnFactory : MonoBehaviour {
 		spawnLocation.y = terrain.SampleHeight(spawnLocation);
 		
 		// Check to see if this position collides with anything in the terrain.
-		// Don't care ATM.
+		// TO-DO
 		
 		// Place a random harvestable at correct location
 		Transform clone = null;
@@ -92,9 +92,5 @@ public class SpawnFactory : MonoBehaviour {
 			clone.transform.parent = transform;
 			clone.transform.name = "harvestable" + numSpawned;
 		}
-	}
-	
-	void OnGUI () {
-		GUI.Label (new Rect (20,400,400,80), "Number Harvestables Spawned#: " + iNumDefaultHarvestableObjects);
 	}
 }

@@ -3,25 +3,25 @@ using System.Collections;
 
 public class PlayerAttributes : MonoBehaviour {
 	
-	enum attr {hunger, warmth, sanity, thirst, energy, health};	
-	int numAttr = 6;
-	string[] names = {"Hunger","Warmth","Sanity","Thirst","Energy","Health"};
+	private enum attr {hunger, warmth, sanity, thirst, energy, health};	
+	private int numAttr = 6;
+	private string[] names = {"Hunger","Warmth","Sanity","Thirst","Energy","Health"};
 
-	float maxAmount = 100f;
-	float goingInsane = 40f;
-	float exertion = 0f;
+	private float maxAmount = 100f;
+	private float goingInsane = 40f;
+	private float exertion = 0f;
 	
-	int startheight = 20;
+	private int startheight = 50;
 	
-	float[] attributes;
+	private float[] attributes;
+	
+	private bool isAlive;
 	
 	// Other objects that effect Attributes
 	public GameObject weather;
 	protected CharacterMotor movement;
 	
 	void Awake() {
-		
-		weather = GameObject.Find("Weather Conditions");
 		movement = gameObject.GetComponent<CharacterMotor>();
 		
 		// create attributes array and assign initial value
@@ -29,36 +29,18 @@ public class PlayerAttributes : MonoBehaviour {
 		for (int i = 0; i < numAttr; i++) {
 			attributes[i] = maxAmount;
 		}
-		
 	}
 	
 	
 	// Use this for initialization
 	void Start () {
-		
-		// get the environmental simulator script
-		//EnvironmentalConditionsSimulator weatherCond = weather.gameObject.GetComponent<EnvironmentalConditionsSimulator>();
-		Debug.Log (weather.gameObject.name);
-		
+		isAlive = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		updateAttributes();
-		if (!playerAlive()) {
-			endGame();
-		}
-		
-	}
-	
-	void OnGUI() {
-		
-		// Draws a bar for each attribute
-		for (int i = 0; i < numAttr; i++) {
-			GUI.Box(new Rect(10, (i*startheight) + 10, (int)attributes[i], 20), names[i]);
-		}
-		
+		playerAlive();
 	}
 	
 	// updates all player attributes
@@ -74,36 +56,36 @@ public class PlayerAttributes : MonoBehaviour {
 	
 	// updates hunger attribute
 	void Hunger() {
-		
-		float hungerDecrease = 0.0005f;
+		float hungerDecrease = 0.05f;
 		// decreases hunger naturally during day
 		decrease(attr.hunger, (hungerDecrease + exertion));
-	
 	}
 	
 	public void affectHunger(float amount) {
-		
 		attributes[(int)attr.hunger] += amount;
 		attributes[(int)attr.energy] += amount;
-	
 	}
 	
 	// updates warmth attribute
 	void Warmth() {
+		float warmthDecrease = 0.05f;
+		float tempaturePercentage = weather.GetComponent<EnvironmentConditionsSimulator>().getTempaturePercentage();
 		
-		float warmthDecrease = 0f;
+		if (tempaturePercentage < 0.05) {
+			decrease(attr.warmth, warmthDecrease);
+		}
+		else{
+			warmthDecrease = 0.05f;
+			increase(attr.warmth, warmthDecrease);
+		}
 		
-		//if (weather.isDayTime) {
-		
-		//}
-			
-		decrease(attr.warmth, warmthDecrease);
-
+		if(attributes[(int)attr.warmth] > 100){
+			attributes[(int)attr.warmth] = 100;
+		}
 	}
 	
 	// updates sanity attribute
 	void Sanity() {
-		
 		float sanityDecrease;
 		
 		// if other attributes are less than certain amount, make
@@ -114,86 +96,75 @@ public class PlayerAttributes : MonoBehaviour {
 			sanityDecrease = 0.005f;
 		}		
 		else {
-			sanityDecrease = 0.000005f;
+			sanityDecrease = 0.05f;
 		}
 		
 		decrease(attr.sanity, (sanityDecrease + exertion));
-
 	}
 	
 	// updates thirst attribute
 	void Thirst() {
 		
-		float thirstDecrease = 0.005f;
+		float thirstDecrease = 0.05f;
 		decrease(attr.thirst, (thirstDecrease + exertion));
 
 	}
 	
 	public void affectThirst(float amount) {
-	
 		attributes[(int)attr.thirst] += amount;
 		attributes[(int)attr.energy] += amount;
-		
 	}
 
 	// updates energy attribute
 	void Energy() {
-		
-		float energyDecrease = 0.0005f;
+		float energyDecrease = 0.05f;
 		decrease(attr.energy, (energyDecrease + exertion));
-		
 	}
 	
 	// allows other scripts to affect the health condition
 	public void affectHealth(float increment) {
-		
 		decrease(attr.health, increment);
-	
 	}
 	
 	// calculates players exertion and modifies exertion variable
 	private float calcExertion() {
-		
 		float exertion = 0f;
 		
 		if (movement.IsJumping()) {
-			exertion += 0.5f;
+			exertion += 0.05f;
 		}
-		if (movement.GetVelocity().magnitude > 0) {
-			exertion += 0.5f;
-		}
+		//if (movement.().magnitude > 0) {
+		//	exertion += 0.5f;
+		//}
 		
 		return exertion;
-		
 	}
 	
 	// decreases each attribute a bit with the passage of time
 	void decrease(attr name, float amount) {
-	
 		attributes[(int)name] += -(amount * Time.deltaTime);
-		
+	}	
+	
+	// increases each attribute a bit with the passage of time
+	void increase(attr name, float amount) {
+		attributes[(int)name] += (amount * Time.deltaTime);
 	}
 	
 	// changes life status based on attribute levels
-	public bool playerAlive() {
-	
+	private void playerAlive() {
 		// determines if player is dead
 		for (int i = 0; i < numAttr; i++) {
 			if (attributes[i] <= 0) {
-				return false;
+				isAlive = false;
 			}
 		}
-		
-		// player is still in the game
-		return true;
-		
 	}
 	
-	// ends the game when player dies
-	void endGame() {
-		
-		
-	
+	public bool getIsPlayerAlive(){
+		return this.isAlive;
 	}
 	
+	public float[] getAttributes(){
+		return this.attributes;
+	}
 }

@@ -56,7 +56,8 @@ public class HealthBars : MonoBehaviour {
              new Need ("Thirst", startval+addval, startHealth),
              new Need ("Hunger", startval+addval*2, startHealth), 
 			 new Need ("Warmth", startval+addval*3, startHealth), 
-			 new Need ("Sanity", startval+addval*4, startHealth)
+			 new Need ("Sanity", startval+addval*4, startHealth),
+			 new Need ("Energy", startval+addval*5, startHealth)
    			};
 	
 	// Use this for initialization
@@ -66,7 +67,9 @@ public class HealthBars : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		naturallyDecrease();	
+		//naturallyDecrease();	
+		
+		updateAttributes();
 	}
 	
 	void OnGUI() {
@@ -79,13 +82,24 @@ public class HealthBars : MonoBehaviour {
 	// changes player sanity every update of the game
 	void naturallyDecrease() {
 		// Health
-		needs[0].alterAmount(needs[0].Amount - 0.000001f);
+		//needs[0].alterAmount(needs[0].Amount - 0.0001f);
 		// Thirst
-		needs[1].alterAmount(needs[1].Amount - 0.0001f);
+		//needs[1].alterAmount(needs[1].Amount - 0.0001f);
 		// Hunger
-		needs[2].alterAmount(needs[2].Amount - 0.0000001f);
+		//needs[2].alterAmount(needs[2].Amount - 0.00001f);
 		// Sanity
-		needs[4].alterAmount(needs[4].Amount - 0.000000001f);
+		//needs[4].alterAmount(needs[4].Amount - 0.000001f);
 	}
 	
+	public void updateAttributes(){
+		float[] array = this.GetComponent<PlayerAttributes>().getAttributes();
+		
+		// array = "Hunger","Warmth","Sanity","Thirst","Energy","Health"
+		needs[0].alterAmount(array[5]); // Health
+		needs[1].alterAmount(array[3]); // Thirst
+		needs[2].alterAmount(array[0]); // Hunger
+		needs[3].alterAmount(array[1]); // Warmth
+		needs[4].alterAmount(array[2]); // Sanity
+		needs[5].alterAmount(array[4]); // Energy
+	}
 }

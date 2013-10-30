@@ -25,7 +25,7 @@ public class Raycast : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		rayCastDistance 		= 3;
+		rayCastDistance 		= 4;
 	}
 	
 	// Update is called once per frame
@@ -44,9 +44,8 @@ public class Raycast : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Mouse0)) {
 				
 				// Add to inventory
-				if(objectName.Contains("food"))
+				if(objectName.Contains("harvestable"))
 				{
-					//c.GetComponent<Harvest>().getHarvestType();
 					harvestFood(c.GetComponent<Harvest>().getHarvestType(), c.GetComponent<Harvest>().getHarvest());
 					
 					// Now destroy the object.
