@@ -5,35 +5,38 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour {
 	
 	public List<ItemClass> backpack = new List<ItemClass>();
-	int numItems;
+	int numItems = 0;
 	float curWeight = 0f;
 	float maxWeight = 75f;
 	bool isFull = false;
 	
 	public Texture inventoryWindow;
+	bool showInv = false;
 	
 	// Use this for initialization
 	void Awake () {
-		backpack = null;
-		numItems = 0;
+		numItems = backpack.Count;
+		Object[] textures = Resources.LoadAll("Textures", typeof(Texture2D));
+		Debug.Log (textures);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		// if press the i button, toggle the inventory
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			showInv = !showInv; 
+		}
 	}
 	
 	void OnGUI () {
-	
-		// if the cursor isn't locked, show the inventory
-		if (!Screen.lockCursor) {
-			GUI.BeginGroup(new Rect(Screen.width / 2, Screen.height - Screen.height, Screen.width, 60));
+		if (showInv) {
+			GUILayout.BeginArea(new Rect(0, 0, Screen.width, 50));
+			GUILayout.BeginHorizontal();
 			for (int i = 0; i < numItems; i++) {
-				if (GUI.Button (new Rect (10,10, 50, 50), backpack[i].texture)) {
-					// show the functions of that item
-				}
+				GUILayout.Button(backpack[i].texture);
 			}
-			GUI.EndGroup();
+			GUILayout.EndHorizontal();
+			GUILayout.EndArea();
 		}
 		
 	}
@@ -52,7 +55,9 @@ public class Inventory : MonoBehaviour {
 		
 		// if there is room, add item to the backpack
 		if ((newItem.Weight + curWeight) < maxWeight) {
-			newItem.ImgTexture = (Texture2D)Resources.LoadAssetAtPath(newItem.Image, typeof(Texture2D));
+			Texture2D temptex = (Texture2D)Resources.LoadAssetAtPath(newItem.Image, typeof(Texture2D));
+			Debug.Log (temptex);
+			newItem.texture = temptex;
 			backpack.Add(newItem);
 			curWeight += newItem.Weight;
 			return !isFull;
