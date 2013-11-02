@@ -19,7 +19,7 @@ public class AllInventoryItems : MonoBehaviour {
 	int numItems = 0;
 	
 	string filename = "Assets/items.txt";
-	
+		
 	ItemClass[] itemlist;
 	
 	protected GameObject player;
@@ -36,7 +36,7 @@ public class AllInventoryItems : MonoBehaviour {
 			//generateRandomList();
 			// give player three random items to inventory
 			int index = 0;
-			for (int i = 0; i < numChoices; i++) {
+			for (int i = 0; i < 5; i++) {
 				index = Random.Range(0, (numItems-1));
 				while (allitems[index].Chosen) {
 					index = Random.Range (0, (numItems-1));
@@ -45,23 +45,6 @@ public class AllInventoryItems : MonoBehaviour {
 				playerInv.addInventoryItem(allitems[index]);
 			}
 		}
-		
-	}
-	
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	void OnGUI () {
-	
-	
-		
 	}
 	
 	void generateRandomList() {
