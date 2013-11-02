@@ -22,13 +22,28 @@ public class AllInventoryItems : MonoBehaviour {
 	
 	ItemClass[] itemlist;
 	
+	protected GameObject player;
+	protected Inventory playerInv;
+	
 	void Awake() {
 		
+		player = GameObject.Find ("Player");
+		playerInv = player.GetComponent<Inventory>();
 		// reads in data from text file
 		success = readInData();
 		if (success) {
 			Debug.Log ("all read in");
-			generateRandomList();
+			//generateRandomList();
+			// give player three random items to inventory
+			int index = 0;
+			for (int i = 0; i < numChoices; i++) {
+				index = Random.Range(0, (numItems-1));
+				while (allitems[index].Chosen) {
+					index = Random.Range (0, (numItems-1));
+				}
+				allitems[index].Chosen = true;
+				playerInv.addInventoryItem(allitems[index]);
+			}
 		}
 		
 	}
