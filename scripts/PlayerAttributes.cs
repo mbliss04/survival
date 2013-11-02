@@ -128,16 +128,18 @@ public class PlayerAttributes : MonoBehaviour {
 	
 	// calculates players exertion and modifies exertion variable
 	private float calcExertion() {
+		
 		float exertion = 0f;
 		
 		if (movement.IsJumping()) {
-			exertion += 0.05f;
+			exertion += 0.5f;
 		}
-		//if (movement.().magnitude > 0) {
-		//	exertion += 0.5f;
-		//}
+		if (movement.GetVelocity().magnitude > 0) {
+			exertion += 0.5f;
+		}
 		
 		return exertion;
+		
 	}
 	
 	// decreases each attribute a bit with the passage of time
