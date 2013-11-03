@@ -5,12 +5,11 @@ public class ItemClass {
 	
 	string itemName;
 	string descrip;
-	int index;
 	int quantity;
 	float weight;
 	string imageSrc;
-	public Texture2D texture;
-	
+	public List<bool> backpack = new List<bool>();
+
 	bool isFlammable;
 	bool isViewable;
 	bool isWearable;
@@ -18,7 +17,7 @@ public class ItemClass {
 	
 	//default constructor
 	public ItemClass() {
-	
+		
 	}
 	
 	public ItemClass(string name, float itemweight) {
@@ -28,7 +27,6 @@ public class ItemClass {
 	
 	}
 	
-	
 	public string Name {
 		get { return itemName; }
 		set { itemName = value; }
@@ -37,11 +35,6 @@ public class ItemClass {
 	public string Description {
 		get { return descrip; }
 		set { descrip = value; }
-	}
-	
-	public int Index {
-		get { return index; }
-		set { index = value; }
 	}
 	
 	public int Quantity {
@@ -57,11 +50,6 @@ public class ItemClass {
 	public string Image {
 		get { return imageSrc; }
 		set { imageSrc = value; }
-	}
-	
-	public Texture2D ImgTexture {
-		get { return texture; }
-		set { texture = value; }
 	}
 	
 	public bool Flammable {
