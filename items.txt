@@ -1,25 +1,25 @@
-"Map", "A map of the surrounding area", -1, 0.02, "Assets/Textures/Inventory/map", true, true, false
-"Compass", "An instrument used for direction", -1, 0.5, "Assets/Textures/Inventory/compass", false, true, false
-"Lighter", "Produces a flame", 10, 0.02, "Assets/Textures/Inventory/lighter", true, true, false
-"Survival Guide", "Basic survival skills", -1, 1, "Assets/Textures/Inventory/survivalguide", true, true, false
-"Torch", "Light to illuminate darkness", 20, 0.625, "Assets/Textures/Inventory/torch", false, true, false
-"Medical Kit", "Contains supplies to help heal basic wounds", 10, 1, "Assets/Textures/Inventory/medkit", true, true, false
-"Sun Hat", "Protects from ultraviolet light", -1, 0.5, "Assets/Textures/Inventory/hat", true, false, true
-"Outdoor Shoes", "Improves speed and keeps feet dry", -1, 2, "Assets/Textures/Inventory/outdoorshoes", true, false, true
-"Windbreaker", "Provides warmth", -1, 2.5, "Assets/Textures/Inventory/windbreaker", true, false, true
-"Blanket", "Provides warmth", -1, 3, "Assets/Textures/Inventory/blanket", true, false, false
-"Water Bottle", "Stores 1 liter of water", 10, 2.5, "Assets/Textures/Inventory/waterbottle", false, false, false
-"Canned Goods", "Improves hunger", 4, 5, "Assets/Textures/Inventory/cannedgoods", false, false, false
-"Rope", "10 meters of rope", -1, 5, "Assets/Textures/Inventory/rope", true, true, false
-"Sunscreen", "Protects from ultraviolet rays", 10, 2, "Assets/Textures/Inventory/sunscreen", false, false, true
-"Matches", "Improves speed and keeps feet dry", -1, 2, "Assets/Textures/Inventory/matches", true, false, true
-"Cotton Balls", "Balls made of cotton", 10, 0.5, "Assets/Textures/Inventory/cottonballs", true, true, false
-"Knife", "Tool for cutting", -1, 1, "Assets/Textures/Inventory/knife", false, true, false
-"Mirror", "Reflective surface", -1, 1, "Assets/Textures/Inventory/mirror", true, true, false
-"Sanitary Wipes", "Wet wipes", 5, 0.5, "Assets/Textures/Inventory/wipes", true, true, false
-"Water Purification Tablets", "Purifies any water source", 10, 0.5, "Assets/Textures/Inventory/watertablets", false, false, true
-"Insect Repellent", "Stops bites from insects", 10, 0.5, "Assets/Textures/Inventory/insectrepellent", true, false, true
-"High Pitch Whistle", "Makes a high pitched noise", -1, 0.02, "Assets/Textures/Inventory/whistle", false, true, false
-"Solar Blanket", "Provides warmth and can be re-charged", -1, 4, "Assets/Textures/Inventory/solarblanket", true, false, true
-"Flare Gun", "Contains 2 flares for emergencies", 2, 1, "Assets/Textures/Inventory/flaregun", true, false, false 
-"Sleeping Bag", "Provides warmth and shelter at night" , -1, 4, "Assets/Textures/Inventory/sleepingbag", true, false, true
+Map,A map of the surrounding area,-1,0.02,map,true,true,false
+Compass,An instrument used for direction,-1,0.5,compass,false,true,false
+Lighter,Produces a flame,10,0.02,lighter,true,true,false
+SurvivalGuide,Basic survival skills,-1,1,survivalguide,true,true,false
+Torch,Light to illuminate darkness,20,0.625,torch,false,true,false
+MedicalKit,Contains supplies to help heal basic wounds,10,1,medkit,true,true,false
+SunHat,Protects from ultra violet light,-1,0.5,hat,true,false,true
+OutdoorShoes,Improves speed and keeps feet dry,-1,2,outdoorshoes,true,false,true
+Windbreaker,Provides warmth,-1,2.5,windbreaker,true,false,true
+Blanket,Provides warmth,-1,3,blanket,true,false,false
+WaterBottle,Stores 1 liter of water,10,2.5,waterbottle,false,false,false
+CannedGoods,Improves hunger,4,5,cannedgoods,false,false,false
+Rope,10 meters of rope,-1,5,rope,true,true,false
+Sunscreen,Protects from ultra violet rays,10,2,sunscreen,false,false,true
+Matches,Improves speed and keeps feet dry,-1,2,matches,true,false,true
+CottonBalls,Balls made of cotton,10,0.5,cottonballs,true,true,false
+Knife,Tool for cutting,-1,1,knife,false,true,false
+Mirror,Reflective surface,-1,1,mirror,true,true,false
+SanitaryWipes,Wet wipes,5,0.5,wipes,true,true,false
+WaterPurificationTablets,Purifies any water source,10,0.5,watertablets,false,false,true
+InsectRepellent,Stops bites from insects,10,0.5,insectrepellent,true,false,true
+HighPitchWhistle,Makes a high pitched noise,-1,0.02,whistle,false,true,false
+SolarBlanket,Provides warmth and can be re-charged,-1,4,solarblanket,true,false,true
+FlareGun,Contains 2 flares for emergencies,2,1,flaregun,true,false,false
+SleepingBag,Provides warmth and shelter at night,-1,4,sleepingbag,true,false,true
