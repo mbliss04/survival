@@ -116,7 +116,6 @@ public class AllInventoryItems : MonoBehaviour {
 		newitem.Viewable = bool.Parse(qualities[(int)itemProp.view]);
 		newitem.Wearable = bool.Parse(qualities[(int)itemProp.wear]);
 		newitem.Chosen = false;
-		newitem.Index = numItems;
 		allitems.Add (newitem);
 		return true;
 	}
