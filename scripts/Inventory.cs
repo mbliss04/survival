@@ -6,9 +6,8 @@ public class Inventory : MonoBehaviour {
 	
 	public List<ItemClass> backpack = new List<ItemClass>();
 	public List<ItemClass> wearing = new List<ItemClass>();
-	int numItems = 0;
 	float curWeight = 0f;
-	float maxWeight = 75f;
+	float maxWeight = 10f;
 	
 	// backpack booleans
 	bool isFull = false;
@@ -20,7 +19,7 @@ public class Inventory : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake () {
-		numItems = backpack.Count;
+
 	}
 	
 	// Update is called once per frame
@@ -35,17 +34,17 @@ public class Inventory : MonoBehaviour {
 		if (showInv) {
 			GUILayout.BeginArea(new Rect(0, Screen.height - 100, Screen.width, 100));
 			GUILayout.BeginHorizontal();
-			for (int i = 0; i < numItems; i++) {
+			for (int i = 0; i < backpack.Count; i++) {
 				Texture2D image = (Texture2D)Resources.Load(backpack[i].Image);
 				if (GUILayout.Button(image)) {
 					if (backpack[i].Wearable) {
-						Debug.Log ("You can put this on");
+						putOn(i);
 					}
 				}
 			}
 			GUILayout.EndHorizontal();
 			GUILayout.BeginHorizontal();
-			for (int i = 0; i < numItems; i++) {
+			for (int i = 0; i < backpack.Count; i++) {
 				GUILayout.Box(backpack[i].Name);
 			}
 			GUILayout.EndHorizontal();
@@ -55,8 +54,7 @@ public class Inventory : MonoBehaviour {
 	}
 	
 	public int Items {
-		get { return numItems; }
-		set { numItems = value; }
+		get { return backpack.Count; }
 	}
 	
 	public bool Full {
@@ -104,6 +102,13 @@ public class Inventory : MonoBehaviour {
 			newitem.Chosen = false;
 		}
 		
+	}
+	
+	void putOn(int index) {
+	
+		wearing.Add(backpack[index]);
+		backpack.RemoveAt(index);
+	
 	}
 	
 }
