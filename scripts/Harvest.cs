@@ -27,4 +27,13 @@ public class Harvest : MonoBehaviour {
 	public void setHarvestType(EHarvestType type){
 		eFoodType = type;
 	}
+	
+	public string getName() {
+		if (eFoodType == EHarvestType.EBerries || eFoodType == EHarvestType.EPoisionessBerries) {
+			return "Berries";
+		}
+		else {
+			return "Grapes";
+		}
+	}
 }
