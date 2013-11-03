@@ -18,16 +18,23 @@ public class Inventory : MonoBehaviour {
 	bool showInv = false;
 	
 	// Use this for initialization
-	void Awake () {
-
+	void Start () {
+		
+		//Screen.showCursor = false;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// if press the i button, toggle the inventory
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			showInv = !showInv; 
+		// if press button, toggle the inventory
+		if (Input.GetKeyDown(KeyCode.I)) {
+			showInv = !showInv;
 		}
+		if (showInv) {
+			// hide cursor
+			Screen.showCursor = true;
+		}
+
 	}
 	
 	void OnGUI () {
@@ -38,7 +45,7 @@ public class Inventory : MonoBehaviour {
 				Texture2D image = (Texture2D)Resources.Load(backpack[i].Image);
 				if (GUILayout.Button(image)) {
 					if (backpack[i].Wearable) {
-						putOn(i);
+						dress(i);
 					}
 				}
 			}
@@ -92,6 +99,7 @@ public class Inventory : MonoBehaviour {
 			backpack[index].Quantity += amount;
 		}
 		else {
+			Debug.Log ("adding " + typeOfFood);
 			// make a new item and add it to the inventory
 			ItemClass newitem = new ItemClass(typeOfFood, (float)amount*.1f);
 			newitem.Image = typeOfFood;
@@ -100,14 +108,22 @@ public class Inventory : MonoBehaviour {
 			newitem.Viewable = false;
 			newitem.Flammable = false;
 			newitem.Chosen = false;
+			addInventoryItem(newitem);
 		}
 		
 	}
 	
-	void putOn(int index) {
+	void dress(int index) {
 	
-		wearing.Add(backpack[index]);
-		backpack.RemoveAt(index);
+		int wearIndex = wearing.FindIndex(x => x.Name.Contains(backpack[index].Name));
+		// if is already wearing, remove from wearing list
+		if (wearing.Count != 0 && wearIndex >= 0) {
+			wearing.RemoveAt(wearIndex);
+		}
+		// otherwise add to wearing list
+		else {
+			wearing.Add(backpack[index]);
+		}
 	
 	}
 	
