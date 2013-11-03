@@ -9,7 +9,11 @@ public class Inventory : MonoBehaviour {
 	int numItems = 0;
 	float curWeight = 0f;
 	float maxWeight = 75f;
+	
+	// backpack booleans
 	bool isFull = false;
+	bool hasBerries = false;
+	bool hasGrapes = false;
 	
 	public Texture inventoryWindow;
 	bool showInv = false;
@@ -81,10 +85,24 @@ public class Inventory : MonoBehaviour {
 		
 	}
 	
-	public void addFood(string typeOfFood, float amount) {
+	public void addFood(string typeOfFood, int amount) {
 	
-		ItemClass newItem = new ItemClass(typeOfFood, amount);
-		
+		int index = -1;
+		index = backpack.FindIndex(x => x.Name.Contains(typeOfFood));
+		if (index >= 0) {
+			// add new quantity to existing item
+			backpack[index].Quantity += amount;
+		}
+		else {
+			// make a new item and add it to the inventory
+			ItemClass newitem = new ItemClass(typeOfFood, (float)amount*.1f);
+			newitem.Image = typeOfFood;
+			newitem.Quantity = amount;
+			newitem.Wearable = false;
+			newitem.Viewable = false;
+			newitem.Flammable = false;
+			newitem.Chosen = false;
+		}
 		
 	}
 	
