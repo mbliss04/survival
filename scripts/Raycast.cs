@@ -24,6 +24,8 @@ public class Raycast : MonoBehaviour {
 	
 	private string objectName = "";
 	
+	bool locked = true;
+	
 	Inventory playerInv;
 	
 	void Awake() {
@@ -31,6 +33,8 @@ public class Raycast : MonoBehaviour {
 		// get access to players inventory to add items
 		playerInv = gameObject.GetComponent<Inventory>();
 		rayCastDistance = 3;
+		
+		Screen.lockCursor = locked;
 		
 	}
 	
@@ -42,12 +46,22 @@ public class Raycast : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 			
+		// if user presses escape, unlocks the cursor
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			locked = !locked;
+			Screen.lockCursor = locked;
+		}
+		else {
+			Screen.lockCursor = locked;
+		}
+		
 		// sends out a ray from the camera
-		Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+		Ray ray = Camera.main.ViewportPointToRay(Input.mousePosition);
 		RaycastHit hit;
 			
 		// checks if ray hits an object on layer 8
 		if (Physics.Raycast(ray, out hit, rayCastDistance, 1<<8)) {
+			Debug.Log ("hit " + hit.transform.gameObject.name);
 			objectName = hit.transform.gameObject.name;
 			GameObject c = hit.transform.gameObject;
 
