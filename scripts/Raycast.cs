@@ -26,17 +26,11 @@ public class Raycast : MonoBehaviour {
 	
 	Inventory playerInv;
 	
-	// lock cursor to begin game
-	bool cursorLocked = true;
-	
 	void Awake() {
 	
 		// get access to players inventory to add items
 		playerInv = gameObject.GetComponent<Inventory>();
 		rayCastDistance = 3;
-		
-		// lock cursor to begin with
-		Screen.lockCursor = true;
 		
 	}
 	
@@ -47,15 +41,9 @@ public class Raycast : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		if (Input.GetKey(KeyCode.Escape)) {
-			Debug.Log ("switching lock state to " + cursorLocked);
-			cursorLocked = !cursorLocked;
-		}
-		Screen.lockCursor = cursorLocked;
 			
 		// sends out a ray from the camera
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 		RaycastHit hit;
 			
 		// checks if ray hits an object on layer 8
