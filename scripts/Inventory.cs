@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour {
 	
 	public List<ItemClass> backpack = new List<ItemClass>();
+	public List<ItemClass> wearing = new List<ItemClass>();
 	int numItems = 0;
 	float curWeight = 0f;
 	float maxWeight = 75f;
@@ -16,8 +17,6 @@ public class Inventory : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		numItems = backpack.Count;
-		Object[] textures = Resources.LoadAll("Textures", typeof(Texture2D));
-		Debug.Log (textures);
 	}
 	
 	// Update is called once per frame
@@ -30,10 +29,20 @@ public class Inventory : MonoBehaviour {
 	
 	void OnGUI () {
 		if (showInv) {
-			GUILayout.BeginArea(new Rect(0, 0, Screen.width, 50));
+			GUILayout.BeginArea(new Rect(0, Screen.height - 100, Screen.width, 100));
 			GUILayout.BeginHorizontal();
 			for (int i = 0; i < numItems; i++) {
-				GUILayout.Button(backpack[i].texture);
+				Texture2D image = (Texture2D)Resources.Load(backpack[i].Image);
+				if (GUILayout.Button(image)) {
+					if (backpack[i].Wearable) {
+						Debug.Log ("You can put this on");
+					}
+				}
+			}
+			GUILayout.EndHorizontal();
+			GUILayout.BeginHorizontal();
+			for (int i = 0; i < numItems; i++) {
+				GUILayout.Box(backpack[i].Name);
 			}
 			GUILayout.EndHorizontal();
 			GUILayout.EndArea();
@@ -55,9 +64,6 @@ public class Inventory : MonoBehaviour {
 		
 		// if there is room, add item to the backpack
 		if ((newItem.Weight + curWeight) < maxWeight) {
-			Texture2D temptex = (Texture2D)Resources.LoadAssetAtPath(newItem.Image, typeof(Texture2D));
-			Debug.Log (temptex);
-			newItem.texture = temptex;
 			backpack.Add(newItem);
 			curWeight += newItem.Weight;
 			return !isFull;
@@ -72,6 +78,13 @@ public class Inventory : MonoBehaviour {
 		// find item and remove it from inventory
 		int index = backpack.FindIndex(r => r.Name == toBeDeleted.Name);
 		backpack.RemoveAt(index);
+		
+	}
+	
+	public void addFood(string typeOfFood, float amount) {
+	
+		ItemClass newItem = new ItemClass(typeOfFood, amount);
+		
 		
 	}
 	
