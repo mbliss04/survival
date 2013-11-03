@@ -11,6 +11,8 @@ public class PlayerAttributes : MonoBehaviour {
 	private float goingInsane = 40f;
 	private float exertion = 0f;
 	
+	public Texture2D background;
+	
 	private int startheight = 50;
 	
 	private float[] attributes;
@@ -18,14 +20,14 @@ public class PlayerAttributes : MonoBehaviour {
 	private bool isAlive;
 	
 	// Other objects that effect Attributes
-	public GameObject environment;
 	protected CharacterMotor movement;
-	protected EnvironmentConditionsSimulator weather;
+	public EnvironmentConditionsSimulator weather;
+	protected Inventory playerInv;
 	
 	void Awake() {
-		environment = GameObject.Find("Weather Conditions");
-		weather = environment.GetComponent<EnvironmentConditionsSimulator>();
+		//weather = environment.GetComponent<EnvironmentConditionsSimulator>();
 		movement = gameObject.GetComponent<CharacterMotor>();
+		playerInv = gameObject.GetComponent<Inventory>();
 		
 		// create attributes array and assign initial value
 		attributes = new float [numAttr];
@@ -46,6 +48,15 @@ public class PlayerAttributes : MonoBehaviour {
 		playerAlive();
 	}
 	
+	void OnGUI() {
+		// Draws a bar for each need
+		GUI.BeginGroup(new Rect(5,5,160,300),background);
+		for (int i = 0; i < numAttr; i++) {
+			GUI.Box(new Rect(30, 30+(i*20), (int)attributes[i], 20), names[i] + ": " + (int)attributes[i] + "%");
+		}
+		GUI.EndGroup();
+	}
+	
 	// updates all player attributes
 	void updateAttributes() {
 		calcExertion();
@@ -54,12 +65,12 @@ public class PlayerAttributes : MonoBehaviour {
 		Sanity ();
 		Thirst ();
 		Energy ();
-		//Health ();
+		keepUnderHundred();
 	}
 	
 	// updates hunger attribute
 	void Hunger() {
-		float hungerDecrease = 0.05f;
+		float hungerDecrease = 0.25f;
 		// decreases hunger naturally during day
 		decrease(attr.hunger, (hungerDecrease + exertion));
 	}
@@ -71,20 +82,27 @@ public class PlayerAttributes : MonoBehaviour {
 	
 	// updates warmth attribute
 	void Warmth() {
-		float warmthDecrease = 0.05f;
+		float warmthDecrease = 0.2f;
 		
-		/*
-		if (weather.getTempaturePercentage() < 0.05) {
-			decrease(attr.warmth, warmthDecrease);
+		// if not wearing anything, make affected by warmth
+		if (playerInv.wearing.Count == 0) {
+			if (weather.getTempaturePercentage() < 0.05) {
+				decrease(attr.warmth, warmthDecrease);
+				decrease(attr.health, warmthDecrease);
+				decrease(attr.energy, warmthDecrease);
+			}
+			else {
+				warmthDecrease = 0.05f;
+				increase(attr.warmth, warmthDecrease);
+			}
 		}
-		else {
-			warmthDecrease = 0.05f;
-			increase(attr.warmth, warmthDecrease);
-		}
-		*/
-		if(attributes[(int)attr.warmth] > 100){
-			attributes[(int)attr.warmth] = 100;
-		}
+	
+	}
+	
+	public void affectWarmth(int amount) {
+		
+		attributes[(int)attr.warmth] += amount;
+		
 	}
 	
 	// updates sanity attribute
@@ -96,10 +114,10 @@ public class PlayerAttributes : MonoBehaviour {
 		if (attributes[(int)attr.thirst] < goingInsane ||
 			attributes[(int)attr.hunger] < goingInsane ||
 			attributes[(int)attr.health] < goingInsane) {
-			sanityDecrease = 0.005f;
+			sanityDecrease = 0.35f;
 		}		
 		else {
-			sanityDecrease = 0.05f;
+			sanityDecrease = 0.1f;
 		}
 		
 		decrease(attr.sanity, (sanityDecrease + exertion));
@@ -108,7 +126,7 @@ public class PlayerAttributes : MonoBehaviour {
 	// updates thirst attribute
 	void Thirst() {
 		
-		float thirstDecrease = 0.05f;
+		float thirstDecrease = 0.35f;
 		decrease(attr.thirst, (thirstDecrease + exertion));
 
 	}
@@ -116,11 +134,13 @@ public class PlayerAttributes : MonoBehaviour {
 	public void affectThirst(float amount) {
 		attributes[(int)attr.thirst] += amount;
 		attributes[(int)attr.energy] += amount;
+		attributes[(int)attr.sanity] += amount;
+
 	}
 
 	// updates energy attribute
 	void Energy() {
-		float energyDecrease = 0.05f;
+		float energyDecrease = 0.3f;
 		decrease(attr.energy, (energyDecrease + exertion));
 	}
 	
@@ -171,5 +191,13 @@ public class PlayerAttributes : MonoBehaviour {
 	
 	public float[] getAttributes(){
 		return this.attributes;
+	}
+	
+	void keepUnderHundred() {
+		for (int i = 0; i < numAttr; i++) {
+			if (attributes[i] > maxAmount) {
+				attributes[i] = maxAmount;
+			}
+		}
 	}
 }
