@@ -18,10 +18,13 @@ public class PlayerAttributes : MonoBehaviour {
 	private bool isAlive;
 	
 	// Other objects that effect Attributes
-	public GameObject weather;
+	public GameObject environment;
 	protected CharacterMotor movement;
+	protected EnvironmentConditionsSimulator weather;
 	
 	void Awake() {
+		environment = GameObject.Find("Weather Conditions");
+		weather = environment.GetComponent<EnvironmentConditionsSimulator>();
 		movement = gameObject.GetComponent<CharacterMotor>();
 		
 		// create attributes array and assign initial value
@@ -69,16 +72,16 @@ public class PlayerAttributes : MonoBehaviour {
 	// updates warmth attribute
 	void Warmth() {
 		float warmthDecrease = 0.05f;
-		float tempaturePercentage = weather.GetComponent<EnvironmentConditionsSimulator>().getTempaturePercentage();
 		
-		if (tempaturePercentage < 0.05) {
+		/*
+		if (weather.getTempaturePercentage() < 0.05) {
 			decrease(attr.warmth, warmthDecrease);
 		}
-		else{
+		else {
 			warmthDecrease = 0.05f;
 			increase(attr.warmth, warmthDecrease);
 		}
-		
+		*/
 		if(attributes[(int)attr.warmth] > 100){
 			attributes[(int)attr.warmth] = 100;
 		}
